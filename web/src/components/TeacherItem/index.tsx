@@ -12,7 +12,7 @@ const TeacherItem = () => {
 			<header>
 				<img
 					src="https://avatars2.githubusercontent.com/u/13263031?s=460&u=f6359d56afb8177d959373bae48eada269ced4d4&v=4"
-					alt="Selfie"
+					alt="Avatar"
 				/>
 				<div>
 					<strong>Mateus Oliveira</strong>
