@@ -1,4 +1,5 @@
 import React from 'react'
+import api from '../../services/api'
 
 //styles
 import './styles.css'
@@ -6,38 +7,54 @@ import './styles.css'
 //icons
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
 
-const TeacherItem = () => {
+export interface Teacher {
+	avatar: string
+	bio: string
+	cost: number
+	id: number
+	name: string
+	subject: string
+	whatsapp: string
+}
+
+interface TeacherItemProps {
+	teacher: Teacher
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+	const createNewConnection = () => {
+		api.post('/connections', {
+			user_id: teacher.id,
+		})
+	}
+
 	return (
 		<article className="teacher-item">
 			<header>
-				<img
-					src="https://avatars2.githubusercontent.com/u/13263031?s=460&u=f6359d56afb8177d959373bae48eada269ced4d4&v=4"
-					alt="Avatar"
-				/>
+				<img src={teacher.avatar} alt={teacher.name} />
 				<div>
-					<strong>Mateus Oliveira</strong>
-					<span>Química</span>
+					<strong>{teacher.name}</strong>
+					<span>{teacher.subject}</span>
 				</div>
 			</header>
 
-			<p>
-				Entusiasta das melhores tecnologias de química avançada.
-				<br />
-				<br />
-				Apaixonado por explodir coisas em laboratório e por mudar a vida
-				das pessoas atráves de experiências. Mais de 200.000 pessoas já
-				passaram por uma das minhas explosões.
-			</p>
+			<p>{teacher.bio}</p>
 
 			<footer>
 				<p>
 					Preço/hora
-					<strong>R$ 80,00</strong>
+					<strong>R$ {teacher.cost}</strong>
 				</p>
-				<button>
+				<a
+					target="_blank"
+					rel="noopener"
+					onClick={createNewConnection}
+					href={`https://wa.me/${teacher.whatsapp}`}
+					about="_blank"
+				>
 					<img src={whatsappIcon} alt="WhatsApp" />
 					Entrar em contato
-				</button>
+				</a>
 			</footer>
 		</article>
 	)
